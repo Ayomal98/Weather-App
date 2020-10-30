@@ -16,11 +16,18 @@ window.addEventListener("load", () => {
         })
         .then((response) => {
           console.log(response);
-          const { apparentTemperature, summary } = response.currently;
+          const { apparentTemperature, summary, icon } = response.currently;
           tempDegree.textContent = apparentTemperature;
           tempDescription.textContent = summary;
           locationTimeZone.textContent = response.timezone;
+          setIcons(icon, document.getElementById("icon"));
         });
     });
+  }
+  function setIcons(icon, iconid) {
+    const skycons = new Skycons({ color: "White" });
+    const currentIcon = icon.replace(/-/g, "_").toUpperCase();
+    skycons.play();
+    return skycons.set(iconid, Skycons[currentIcon]);
   }
 });
